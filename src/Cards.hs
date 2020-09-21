@@ -18,5 +18,6 @@ instance Show Card where
 
 type Deck = [Card]
 
-deck::Deck
-deck = Card <$> [Clubs .. Spades] <*> [Ace .. King]
+deck::Int -> Deck
+deck n = concat $ replicate n deck
+    where deck = Card <$> [Clubs .. Spades] <*> [Ace .. King]
