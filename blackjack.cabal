@@ -24,7 +24,7 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Cards
   other-modules:
       Paths_blackjack
   hs-source-dirs:
