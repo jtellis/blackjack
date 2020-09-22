@@ -1,6 +1,6 @@
 module Cards (
     deck
-  , pick
+  , shuffle
 ) where
 
 import System.Random
@@ -30,3 +30,14 @@ pick deck gen =
     let n = length deck
         (i, newGen) = randomR (0, n - 1) gen
     in (deck !! i, newGen)
+
+shuffle :: (RandomGen g) => Deck -> g -> (Deck, g)
+shuffle [card] gen = ([card], gen)
+shuffle deck gen =
+    let n = length deck
+        (i, gen') = randomR (0, n - 1) gen
+        (xs, ys) = splitAt i deck
+        picked = head ys
+        rest = xs ++ tail ys
+        (shuffled, gen'') = shuffle rest gen'
+    in ([picked] ++ shuffled, gen'')
