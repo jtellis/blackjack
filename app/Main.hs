@@ -1,6 +1,9 @@
 module Main where
 
 import Cards
+import System.Random  
 
 main :: IO ()
-main = print $ length deck
+main = do
+    gen <- getStdGen
+    print $ pick (deck 1) gen
