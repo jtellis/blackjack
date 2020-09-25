@@ -3,7 +3,7 @@ module Cards (
   , shuffle
 ) where
 
-import System.Random
+import System.Random (RandomGen, randomR)
 
 data Rank = Ace | Two | Three | Four | Five
           | Six | Seven | Eight | Nine | Ten
