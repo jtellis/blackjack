@@ -40,4 +40,4 @@ shuffle deck gen =
         picked = head ys
         rest = xs ++ tail ys
         (shuffled, gen'') = shuffle rest gen'
-    in ([picked] ++ shuffled, gen'')
+    in (picked:shuffled, gen'')
