@@ -1,7 +1,8 @@
 module Cards (
     deck
   , shuffle
-  , addCard
+  , emptyHand
+  , deal
 ) where
 
 import System.Random (RandomGen, randomR)
@@ -32,7 +33,9 @@ data Hand = Hand { cards :: [Card]
                  , handType :: HandType
                  , total :: Int
                  }
-    deriving (Show)
+
+instance Show Hand where
+    show (Hand cs ht t) = show cs ++ " " ++ show ht ++ " " ++ show t
 
 deck :: Int -> Deck
 deck n = concat $ replicate n deck
@@ -54,6 +57,9 @@ shuffle deck gen =
         rest = xs ++ tail ys
         (shuffled, gen'') = shuffle rest gen'
     in (picked:shuffled, gen'')
+
+emptyHand :: Hand
+emptyHand = Hand {cards=[], handType=Hard, total=0}
 
 addCard :: Hand -> Card -> Hand
 addCard h c
@@ -88,3 +94,6 @@ addCard h c
           value Card {rank=Eight} = 8
           value Card {rank=Nine} = 9
           value _ = 10
+
+deal :: Hand -> Deck -> (Hand, Deck)
+deal hand (card:deck) = (addCard hand card, deck)
