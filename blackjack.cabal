@@ -25,6 +25,8 @@ source-repository head
 library
   exposed-modules:
       Cards
+      Gameplay
+      Terminal
   other-modules:
       Paths_blackjack
   hs-source-dirs:
