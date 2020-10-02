@@ -1,5 +1,19 @@
 # Blackjack (21)
 
+## TODO
+
+* Create game loop
+  * Persist state across rounds
+  * Collection and re-shuffling of cards
+* Use State monad to improve and clean up hand and deck manipulation code
+* Allow hand splitting
+* Betting functionality
+  * Bank
+  * Allow player to purchase insurance against the dealer's hand
+  * Allow player to forfeit/surrender a hand
+  * Blackjack hand bonus
+* Improve visual presentation
+
 ## Rules
 
 ### Game Deck
