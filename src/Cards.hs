@@ -1,8 +1,11 @@
 module Cards (
-    deck
+    Deck
+  , HandType (..)
+  , Hand (..)
+  , deck
   , shuffle
   , emptyHand
-  , deal
+  , dealCard
 ) where
 
 import System.Random (RandomGen, randomR)
@@ -95,5 +98,5 @@ addCard h c
           value Card {rank=Nine} = 9
           value _ = 10
 
-deal :: Hand -> Deck -> (Hand, Deck)
-deal hand (card:deck) = (addCard hand card, deck)
+dealCard :: Hand -> Deck -> (Hand, Deck)
+dealCard hand (card:deck) = (addCard hand card, deck)
