@@ -10,4 +10,5 @@ main = do
     Term.clear
     gen <- getStdGen
     let (d, gen') = shuffle (deck 1) gen
-    play d
+    (d', dis) <- playRound d []
+    print $ map length [d', dis]

@@ -1,5 +1,5 @@
 module Gameplay (
-    play
+    playRound
 ) where
 
 import System.IO (hFlush, stdout)
@@ -53,8 +53,8 @@ dealerTurn h d
     where isSoft = handType h == Soft
           t = total h
 
-play :: Deck -> IO ()
-play d = do
+playRound :: Deck -> Discard -> IO (Deck, Discard)
+playRound d discard = do
     let (playerHand, d') = dealCard emptyHand d
     let (dealerHand, d) = dealCard emptyHand d'
     putStr "Dealer shows: "
@@ -71,7 +71,8 @@ play d = do
                         LT -> print "You lose!"
                         GT -> print "You win!"
                         EQ -> print "Push!"
-                    return ()
                 else print "You win!"
-        else print "You lose!"
-    return ()
+            return (d, collectHands discard [playerHand, dealerHand])
+        else do
+            print "You lose!"
+            return (d', collectHands discard [playerHand, dealerHand'])

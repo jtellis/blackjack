@@ -1,11 +1,13 @@
 module Cards (
     Deck
+  , Discard
   , HandType (..)
   , Hand (..)
   , deck
   , shuffle
   , emptyHand
   , dealCard
+  , collectHands
 ) where
 
 import System.Random (RandomGen, randomR)
@@ -26,6 +28,7 @@ instance Show Card where
     show (Card s r) = show r ++ " of " ++ show s
 
 type Deck = [Card]
+type Discard = [Card]
 
 -- Any hand with an Ace valued as 11 is called a ‘soft’ hand.
 -- All other hands are ‘hard’ hands.
@@ -100,3 +103,9 @@ addCard h c
 
 dealCard :: Hand -> Deck -> (Hand, Deck)
 dealCard hand (card:deck) = (addCard hand card, deck)
+
+collectHand :: Discard -> Hand -> Discard
+collectHand d h = cards h ++ d
+
+collectHands :: Discard -> [Hand] -> Discard
+collectHands = foldl collectHand
