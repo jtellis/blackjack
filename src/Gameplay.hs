@@ -1,6 +1,5 @@
 module Gameplay (
-    playerTurn,
-    dealerTurn
+    play
 ) where
 
 import System.IO (hFlush, stdout)
@@ -53,3 +52,26 @@ dealerTurn h d
         return (h, d)
     where isSoft = handType h == Soft
           t = total h
+
+play :: Deck -> IO ()
+play d = do
+    let (playerHand, d') = dealCard emptyHand d
+    let (dealerHand, d) = dealCard emptyHand d'
+    putStr "Dealer shows: "
+    print dealerHand
+    let (playerHand', d') = dealCard playerHand d
+    let (dealerHand', d) = dealCard dealerHand d'
+    (playerHand, d') <- playerTurn playerHand' d
+    if handType playerHand /= Bust
+        then do
+            (dealerHand, d) <- dealerTurn dealerHand' d'
+            if handType dealerHand /= Bust
+                then do
+                    case compare (total playerHand) (total dealerHand) of
+                        LT -> print "You lose!"
+                        GT -> print "You win!"
+                        EQ -> print "Push!"
+                    return ()
+                else print "You win!"
+        else print "You lose!"
+    return ()
