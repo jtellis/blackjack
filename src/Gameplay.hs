@@ -1,5 +1,5 @@
 module Gameplay (
-    playRound
+    playLoop
 ) where
 
 import System.IO (hFlush, stdout)
@@ -76,3 +76,9 @@ playRound d discard = do
         else do
             print "You lose!"
             return (d', collectHands discard [playerHand, dealerHand'])
+
+playLoop ::  Deck -> Discard -> IO (Deck, Discard)
+playLoop d discard = do
+    putStrLn "--- NEW ROUND ---"
+    (d', discard') <- playRound d discard
+    playLoop d' discard'
